@@ -8,7 +8,7 @@ class Message(models.Model):
     receiver = models.CharField(max_length=50, blank=False, null=False)
     # the message content is limited to 160 character for readability
     message_content = models.CharField(max_length=160, blank=False)
-    created = models.DateTimeField(auto_now=True)
+    sent_datetime = models.DateTimeField(auto_now=True)
     # this field is nice since we can fetch unread messages if we want to
     # given that our API is pretty naive and uses a GET method for messages
     is_read = models.BooleanField(default=False)
