@@ -6,18 +6,21 @@ from rest_framework import generics, mixins, status
 class MessageSendView(mixins.CreateModelMixin,
                       generics.GenericAPIView):
     """
-    View used to create Messages
+    API endpoint that is used to send a message.
     """
     serializer_class = MessageSerializer
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class MessagesListView(generics.ListAPIView):
+
+class MessagesListView(mixins.CreateModelMixin,
+                       generics.GenericAPIView):
     """
     View used to look at messages
     """
     serializer = MessageSerializer
+
     def get_queryset(self):
         """
         Filters the query set depending on the params in the API call
@@ -29,4 +32,7 @@ class MessagesListView(generics.ListAPIView):
             queryset = queryset.filter(sender=sender)
         # limit to only the number requested
         return queryset
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 

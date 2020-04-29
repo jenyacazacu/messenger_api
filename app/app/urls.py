@@ -14,13 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from backend import views
 
 
 urlpatterns = [
      path('admin/', admin.site.urls),
-     path('api/v1/messages/send', views.MessageSendView.as_view()),
-     path('api/v1/messages/recent/(?P<username>.+)/$', views.MessagesListView.as_view()),
+     path('api/messages/send/', views.MessageSendView.as_view(), name='message-send'),
+     path('api/messages/recent/<str:username>/', views.MessagesListView.as_view(), name='messages-list'),
 ]
-

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from backend.models import Message
+from .models import Message
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -7,5 +7,3 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = ['id', 'sender', 'receiver', 'message_content', 'created', 'is_read']
         read_only_fields = ['created', 'is_read']
-
-
