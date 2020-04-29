@@ -57,7 +57,7 @@ GET http://localhost:1337/api/messages/
 
 OPTIONAL query_params: sender, recipient, is_read
 
-EXAMPLE: http://localhost:1337/api/messages/?sender=bob?recipient=alice?is_read=false
+EXAMPLE: http://localhost:1337/api/messages/?sender=bob&recipient=alice&is_read=False
 ```
 
 ## Running Tests
