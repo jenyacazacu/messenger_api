@@ -1,6 +1,7 @@
+from rest_framework import generics, mixins
+
 from .models import Message
 from .serializers import MessageSerializer
-from rest_framework import generics, mixins, status
 
 
 class MessageSendView(mixins.CreateModelMixin,
@@ -31,7 +32,7 @@ class MessagesListView(mixins.ListModelMixin,
         if sender is not None:
             queryset = queryset.filter(sender=sender)
         # limit to only the number requested
-        return queryset
+        return queryset.filter()
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
