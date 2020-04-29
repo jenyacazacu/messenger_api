@@ -19,6 +19,8 @@ from backend import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls)
+     path('admin/', admin.site.urls),
+     path('api/v1/messages/send', views.MessageSendView.as_view()),
+     path('api/v1/messages/recent/(?P<username>.+)/$', views.MessagesListView.as_view()),
 ]
 

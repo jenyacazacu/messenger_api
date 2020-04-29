@@ -20,20 +20,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 # todo : remove
-SECRET_KEY = 'foo'
+#SECRET_KEY = 'foo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 # 'ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # todo: remove
-DJANGO_ALLOWED_HOSTS = 'localhost 127.0.0.1 [::1]]'
-ALLOWED_HOSTS = DJANGO_ALLOWED_HOSTS.split(" ")
+#DJANGO_ALLOWED_HOSTS = 'localhost 127.0.0.1 [::1]]'
+#ALLOWED_HOSTS = DJANGO_ALLOWED_HOSTS.split(" ")
 # Application definition
 
 INSTALLED_APPS = [
@@ -131,3 +131,7 @@ USE_TZ = True
 
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+}
