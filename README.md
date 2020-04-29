@@ -4,7 +4,7 @@
 - Docker
 - Django
 - Django Rest Framework
-- PostgresSQL
+- PostgreSQL
 - NGINX
 
 ## Functionality
