@@ -12,11 +12,14 @@
 - Users can list the most recent messages from any given sender and to any given recipient.
 
 ## Requirements
-- You must have Docker installed and running, installation instruction are available [here](https://docs.docker.com/get-docker/)
+- You must have Docker installed and running, installation instructions are available [here](https://docs.docker.com/get-docker/)
 
 ## How to start and run the API
 
 ### Step1: Git clone this repo
+```
+home % git clone https://github.com/jenyacazacu/messenger_api.git
+```
 
 ### Step 2: From the root directory build the images and start the docker containers
 
