@@ -14,12 +14,12 @@ class MessageSendView(mixins.CreateModelMixin,
         return self.create(request, *args, **kwargs)
 
 
-class MessagesListView(mixins.CreateModelMixin,
+class MessagesListView(mixins.ListModelMixin,
                        generics.GenericAPIView):
     """
-    View used to look at messages
+    API Endpoint that lists the recent messages for a given recipient.
     """
-    serializer = MessageSerializer
+    serializer_class = MessageSerializer
 
     def get_queryset(self):
         """
