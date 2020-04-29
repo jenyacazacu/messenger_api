@@ -14,12 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
-from backend import views
-
+from django.urls import path, include
 
 urlpatterns = [
      path('admin/', admin.site.urls),
-     path('api/messages/send/', views.MessageSendView.as_view(), name='message-send'),
-     path('api/messages/recent/<str:username>/', views.MessagesListView.as_view(), name='messages-list'),
+     path('api/', include('messenger.urls')),
 ]
