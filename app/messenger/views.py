@@ -53,10 +53,12 @@ class MessagesListView(mixins.ListModelMixin,
     Returns all the messages sent in the last 30 days
     or a limit of last 100 messages, ordered by timestamp descending.
 
-    Query Params:
+    **Query Params:**
 
     **'sender'** string (optional)
+
     **'recipient'** string(optional)
+
     **'is_read'** boolean (optional)
 
     ---
@@ -87,9 +89,9 @@ class MessagesListView(mixins.ListModelMixin,
         # start filtering
         recipient = self.request.query_params.get('recipient')
         if recipient is not None:
-            queryset = queryset.filter(receiver=recipient)
+            queryset = queryset.filter(recipient=recipient)
 
-        sender = self.request.query_params.get('from', None)
+        sender = self.request.query_params.get('sender', None)
         if sender is not None:
             queryset = queryset.filter(sender=sender)
 
