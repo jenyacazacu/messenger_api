@@ -1,10 +1,12 @@
+import random
+import string
+
 from django.urls import reverse
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.views import status
-from messenger.models import Message
+
 from messenger.constants import INT_MAX_MESSAGES_LIMIT
-import random
-import string
+from messenger.models import Message
 
 
 class BaseViewTest(APITestCase):
@@ -118,16 +120,50 @@ class MessagesSendViewTest(BaseViewTest):
     def test_send_message_success(self):
         request_body = {
             "sender": self.test_user_austin,
-
+            "recipient": self.test_user_claire,
+            "message_content": self.randomText()
+        }
         response = self.client.post(
-            reverse("message-send")
+            reverse("message-send"),
+            request_body
         )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # check that the database was updated
+        ms_count = Message.objects.filter(recipient=self.test_user_claire, sender=self.test_user_austin).count()
+        self.assertEqual(ms_count, 1)
 
     def test_send_message_fail_missing_sender(self):
-        pass
+        request_body = {
+            "sender": "",
+            "recipient": self.test_user_claire,
+            "text": self.randomText()
+        }
+        response = self.client.post(
+            reverse("message-send"),
+            request_body
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_send_message_fail_missing_recipient(self):
-        pass
+        request_body = {
+            "sender": self.test_user_claire,
+            "recipient": "",
+            "text": self.randomText()
+        }
+        response = self.client.post(
+            reverse("message-send"),
+            request_body
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_send_message_fail_missing_text(self):
-        pass
+        request_body = {
+            "sender": self.test_user_claire,
+            "recipient": self.test_user_claire,
+            "text": ""
+        }
+        response = self.client.post(
+            reverse("message-send"),
+            request_body
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

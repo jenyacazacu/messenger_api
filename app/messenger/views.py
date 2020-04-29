@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
+
 from rest_framework import generics, mixins
 
-from messenger.constants import INT_MAX_MESSAGES_LIMIT, INT_MAX_DAYS_OFFSET
-from .models import Message
-from .serializers import MessageSerializer
+from messenger.constants import INT_MAX_DAYS_OFFSET
+from messenger.models import Message
+from messenger.serializers import MessageSerializer
 
 
 class MessageSendView(mixins.CreateModelMixin,
@@ -89,11 +90,11 @@ class MessagesListView(mixins.ListModelMixin,
         # start filtering
         recipient = self.request.query_params.get('recipient')
         if recipient is not None:
-            queryset = queryset.filter(recipient=recipient)
+            queryset = queryset.filter(recipient__iexact=recipient)
 
         sender = self.request.query_params.get('sender', None)
         if sender is not None:
-            queryset = queryset.filter(sender=sender)
+            queryset = queryset.filter(sender__iexact=sender)
 
         is_read = self.request.query_params.get('is_read', None)
         if is_read is not None:
