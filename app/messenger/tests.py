@@ -118,6 +118,9 @@ class MessagesSendViewTest(BaseViewTest):
     """
 
     def test_send_message_success(self):
+        """
+        This test ensures that a message can be sent successfully.
+        """
         request_body = {
             "sender": self.test_user_austin,
             "recipient": self.test_user_claire,
@@ -133,10 +136,13 @@ class MessagesSendViewTest(BaseViewTest):
         self.assertEqual(ms_count, 1)
 
     def test_send_message_fail_missing_sender(self):
+        """
+        This test ensures that a message cannot be sent without a sender.
+        """
         request_body = {
             "sender": "",
             "recipient": self.test_user_claire,
-            "text": self.randomText()
+            "message_content": self.randomText()
         }
         response = self.client.post(
             reverse("message-send"),
@@ -145,10 +151,13 @@ class MessagesSendViewTest(BaseViewTest):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_send_message_fail_missing_recipient(self):
+        """
+        This test ensures that a message cannot be sent without a recipient.
+        """
         request_body = {
             "sender": self.test_user_claire,
             "recipient": "",
-            "text": self.randomText()
+            "message_content": self.randomText()
         }
         response = self.client.post(
             reverse("message-send"),
@@ -157,10 +166,13 @@ class MessagesSendViewTest(BaseViewTest):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_send_message_fail_missing_text(self):
+        """
+        This test ensures that a message cannot be sent without content.
+        """
         request_body = {
             "sender": self.test_user_claire,
             "recipient": self.test_user_claire,
-            "text": ""
+            "message_content": ""
         }
         response = self.client.post(
             reverse("message-send"),
